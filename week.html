@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .fade-in {
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-[rgb(254,250,220)] flex items-center justify-center min-h-screen">
+    <div class="w-[90%] flex items-center justify-center">
+        <div class="doddle flex items-bottom justify-bottom h-[400px] floating">
+            <img class="h-[300px] w-[400px]" src="https://framerusercontent.com/images/F1Ikwj8h1YSk2VYOiDQvanO40Is.png?scale-down-to=512" alt="">
+        </div>
+        <div class="p-10 gap-24 card flex h-[600px] w-[1400px] rounded-lg border-4 border-dashed border-[rgb(57,62,65)]">
+            <div class="image flex-[4] flex justify-center items-center">
+                <img id="dayImage" class="h-[80%] fade-in floating" src="rose.png" alt="">
+            </div>
+            <div class="message flex-[6] flex flex-col justify-center items-center">
+                <h2 id="dayTitle" class="text-5xl font-extrabold text-pink-600 drop-shadow-lg mb-14 fade-in floating">Rose Day</h2>
+                <p id="dayMessage" class="text-gray-700 text-lg leading-relaxed fade-in">
+                    Just like a rose, your love has filled my life with beauty, fragrance, and warmth. Each petal reminds me of your gentle kindness, and even the thorns teach me the value of patience and protection in love. You are the most precious bloom in my garden of life, and I promise to cherish and nurture our love always. Every moment with you is a dream come true, and I am grateful for your presence in my life. Today, I give you this rose as a symbol of my undying love and admiration. You are my heart’s most beautiful melody. Happy Rose Day, my love! 🌹
+                </p>
+                <button onclick="nextDay()" class="mt-6 px-8 py-4 bg-gradient-to-r from-pink-400 to-red-500 text-white font-bold rounded-full shadow-lg hover:from-pink-500 hover:to-red-600 transform hover:scale-105 transition-all duration-300">
+                    Next
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const days = [
+            { title: "Rose Day", message: "Just like a rose, your love has filled my life with beauty, fragrance, and warmth. Each petal reminds me of your gentle kindness, and even the thorns teach me the value of patience and protection in love. You are the most precious bloom in my garden of life, and I promise to cherish and nurture our love always. Every moment with you is a dream come true, and I am grateful for your presence in my life. Today, I give you this rose as a symbol of my undying love and admiration. You are my heart’s most beautiful melody. Happy Rose Day, my love! 🌹", image: "rose.png" },
+            { title: "Propose Day", message: "From the moment I met you, I knew you were the one I wanted to spend my forever with. Your laughter, your kindness, your love—everything about you makes my heart race. So today, I want to ask you again, with all my love: Will you always be mine? I promise to stand by you, love you endlessly, and make every moment of our lives special. No matter where life takes us, I want to walk that path holding your hand, forever and always. Happy Propose Day, my love! ❤️", image: "purpose.png" },
+            { title: "Chocolate Day", message: "Your love is sweeter than the richest chocolate, melting my heart with every smile and touch. Just like chocolate brings joy, you bring happiness into my life in ways I never imagined. Every moment with you is as delightful as the first bite of my favorite treat, making my life sweeter every day. No matter how bitter life gets, your love always brings back the sweetness. Today, I send you all my love wrapped in warmth and joy—just like your favorite chocolate. Keep shining, my love! Happy Chocolate Day! 🍫❤️", image: "choclate.png" },
+            { title: "Teddy Day", message: "If I could, I would turn myself into a teddy bear just so I could stay by your side, giving you warm hugs every moment of the day. But since I can't, here's a soft and cuddly teddy to remind you of my love and warmth whenever I’m not around. May it always bring a smile to your face and make you feel my presence, no matter how far we are. You are my comfort, my happiness, and the love of my life. Keep this teddy close and know that my love for you is forever. Happy Teddy Day, my love! 🧸💕", image: "teddy.png" },
+            { title: "Promise Day", message: "Today, I make a promise to you—a promise to love you endlessly, to stand by you in every joy and sorrow, and to be your biggest supporter in every dream you chase. I promise to respect you, cherish you, and always make you feel special, because you truly are. No matter what challenges come our way, I vow to hold your hand and never let go. With you, my heart has found its home, and I will always strive to make our love stronger every single day. You are my forever, and I promise to love you for eternity. Happy Promise Day! 💖", image: "promise.png" },
+            { title: "Hug Day", message: "A hug is more than just an embrace; it’s a silent way of saying, “I’m here for you.” In your arms, I find peace, love, and strength. Your hug is my safe place, where worries fade, and happiness grows. Every hug we share deepens our bond, bringing warmth and comfort. No matter what, I’ll always be here to hold you close. Sending you the tightest hug today and always! 🤗❤️", image: "hug.png" },
+            { title: "Kiss Day", message: "A kiss is not just a sign of love—it’s a silent promise, a heartfelt connection, and a reminder that you mean the world to me. Every kiss from you makes my heart race and my soul feel at home. I want to kiss away all your worries and fill your heart with happiness and warmth. Whether it's a soft peck on the forehead or a passionate kiss, every moment with you feels magical. So today, and every day, I send you all my love and countless kisses. Can’t wait to be in your arms! Happy Kiss Day, my love! 😘💋", image: "kiss.png" },
+            { title: "Valentine's Day", message: "Happy Valentine’s Day, my love! Today is a celebration of us—of the love we share, the memories we create, and the bond we cherish. Every single day with you feels like a dream, and I’m grateful for every smile, every hug, and every moment we spend together. You are the love of my life, my best friend, and my greatest blessing. I can’t imagine my life without you, and I promise to love you more with each passing day. Thank you for being my forever Valentine. Here’s to a lifetime of love, laughter, and happiness together! ❤️🌹", image: "valentine.png" }
+        ];
+
+        let currentIndex = 0;
+        function nextDay() {
+            document.getElementById("dayTitle").classList.add("fade-out");
+            document.getElementById("dayMessage").classList.add("fade-out");
+            document.getElementById("dayImage").classList.add("fade-out");
+
+            setTimeout(() => {
+                currentIndex = (currentIndex + 1) % days.length;
+                document.getElementById("dayTitle").innerText = days[currentIndex].title;
+                document.getElementById("dayMessage").innerText = days[currentIndex].message;
+                document.getElementById("dayImage").src = days[currentIndex].image;
+                document.getElementById("dayTitle").classList.remove("fade-out");
+                document.getElementById("dayMessage").classList.remove("fade-out");
+                document.getElementById("dayImage").classList.remove("fade-out");
+                document.getElementById("dayTitle").classList.add("fade-in");
+                document.getElementById("dayMessage").classList.add("fade-in");
+                document.getElementById("dayImage").classList.add("fade-in");
+            }, 500);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Question</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <section>
+            <p>♡ Will you be my Valentine? ♡</p>
+            <div class="img-container">  
+                <img id="valentineImage" src="ask.gif" alt="Valentine's GIF" width="340" height="200">
+            </div>
+            <div class="button-section">
+                <button id="yesButton" class="yes-button button-base button-green">Yes</button>
+                <button id="noButton" class="no-button button-base button-red">No</button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const yesButton = document.getElementById("yesButton");
+        const noButton = document.getElementById("noButton");
+        const valentineImage = document.getElementById("valentineImage");
+
+        const phrases = [
+            "Wrong button ❌",
+            "Are you sure 🤔?",
+            "But what if 🫣?",
+            "You're breaking my heart 💔",
+            "Pwetty please 🥺👉👈",
+            "Can't catch up? 😂"
+        ];
+
+        noButton.addEventListener("mouseover", () => {
+            const x = Math.random() * 60;
+            const y = Math.random() * 60;
+            noButton.style.position = 'absolute';
+            noButton.style.top = `${x}%`;
+            noButton.style.right = `${y}%`;
+            noButton.textContent = phrases[Math.floor(Math.random() * phrases.length)];
+        });
+
+        yesButton.addEventListener("mouseover", () => {
+            valentineImage.src = "heppi.gif";
+        });
+
+        yesButton.addEventListener("mouseout", () => {
+            valentineImage.src = "ask.gif";
+        });
+
+        yesButton.addEventListener("click", () => {
+            window.location.href = "success.html";
+        });
+    </script>
+</body>
+</html>
